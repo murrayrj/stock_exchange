@@ -65,7 +65,6 @@ def menu
   puts '3 - Buy/Sell Stocks'
   puts '4 - List a client and their balance'
   puts "5 - List a client's portfolios and associated values"
-  puts "6 - List all stocks in a portfolio and associated values"
   puts 'q - Quit program'
   print "--> "
   gets.chomp.downcase
@@ -103,11 +102,17 @@ while response != 'q'
     puts "(B)uy or (S)ell a stock"
     answer = gets.chomp.downcase
     if answer == 'b'
-      print "Number of Shares to Purcahse: "
+      print "Number of Shares to Buy: "
       buy_shares = gets.chomp.to_f
+      stock.no_of_shares += buy_shares
+      client.balance += stock.share_price*buy_shares
+      puts "The new balance of #{client.name} is $#{client.balance} and now has #{stock.no_of_shares} shares in #{stock.name} and an associated value of $#{stock.share_price*stock.no_of_shares}"
     elsif answer == 's'
       print "Number of Shares to Sell: "
       sell_shares = gets.chomp.to_f
+      stock.no_of_shares -= sell_shares
+      client.balance += stock.share_price*sell_shares
+      puts "The new balance of #{client.name} is $#{client.balance} and now has #{stock.no_of_shares} shares in #{stock.name} and an associated value of $#{stock.share_price*stock.no_of_shares}"
     end
     gets
   when '4'
@@ -124,7 +129,6 @@ while response != 'q'
     client.portfolios.keys.each_with_index do |client|
       puts "#{client}"
     end
-  when '6'
   end
   response = menu
 end
