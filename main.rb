@@ -62,11 +62,10 @@ def menu
   puts '*** GASE ***'
   puts '1 - Create a client'
   puts '2 - Create a portfolio'
-  puts '3 - Purchase Stocks'
-  puts '4 - Sell Stocks'
-  puts '5 - List all clients and their balances'
-  puts "6 - List a client's portfolios and associated values"
-  puts "7 - List all stocks in a portfolio and associated values"
+  puts '3 - Buy/Sell Stocks'
+  puts '4 - List all clients and their balances'
+  puts "5 - List a client's portfolios and associated values"
+  puts "6 - List all stocks in a portfolio and associated values"
   puts 'q - Quit program'
   print "--> "
   gets.chomp.downcase
@@ -96,25 +95,21 @@ while response != 'q'
     portfolio = Portfolio.new({name: name})
     portfolio = client.portfolios[name]
   when '3'
-    puts "Purcahse a stock"
     puts "Who's your client?\n#{ga_brokers.clients.keys.join(' ')}"
     client = ga_brokers.clients[gets.chomp]
     puts "Portfolio:\n#{client.portfolios.keys.join(' ')}"
     portfolio = client.portfolios[gets.chomp]
     puts "Stock:\n#{portfolio.stocks.keys.join(' ')}"
     stock = portfolio.stocks[gets.chomp.to_sym]
+    puts "(B)uy or (S)ell a stock"
+    answer = gets.chomp.downcase
+    if answer == 'b'
     print "Number of Shares to Purcahse: "
     buy_shares = gets.chomp.to_f
-  when '4'
-    puts "Sell a stock"
-    puts "Who's your client?\n#{ga_brokers.clients.keys.join(' ')}"
-    client = ga_brokers.clients[gets.chomp]
-    puts "Portfolio:\n#{client.portfolios.keys.join(' ')}"
-    portfolio = client.portfolios[gets.chomp]
-    puts "Stock:\n#{portfolio.stocks.keys.join(' ')}"
-    stock = portfolio.stocks[gets.chomp.to_sym]
+    elsif answer == 's'
     print "Number of Shares to Sell: "
     sell_shares = gets.chomp.to_f
+    end
   when '5'
   when '6'
   when '7'
