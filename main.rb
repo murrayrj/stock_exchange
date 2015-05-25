@@ -6,48 +6,48 @@ require_relative 'stock'
 
 aapl = Stock.new({
   name: :aapl,
-  no_shares: 818,
-  price: 132.5})
+  no_of_shares: 818,
+  share_price: 132.5})
 goog = Stock.new({
   name: :goog,
-  no_shares: 613,
-  price: 540.1})
+  no_of_shares: 613,
+  share_price: 540.1})
 amzn = Stock.new({
   name: :amzn,
-  no_shares: 436,
-  price: 427.6})
+  no_of_shares: 436,
+  share_price: 427.6})
 technology = Portfolio.new({
   name:'Technology', 
   stocks:{aapl.name => aapl, goog.name => goog, amzn.name=> amzn}
 })
 bny_melllon = Stock.new({
   name: :bny_melllon,
-  no_shares: 378,
-  price: 43.5})
+  no_of_shares: 378,
+  share_price: 43.5})
 td_bank = Stock.new({
   name: :td_bank,
-  no_shares: 382,
-  price: 56.1})
+  no_of_shares: 382,
+  share_price: 56.1})
 bofa = Stock.new({
   name: :bofa,
-  no_shares: 963,
-  price: 16.7})
+  no_of_shares: 963,
+  share_price: 16.7})
 finance = Portfolio.new({
   name: 'Finance',
   stocks:{bny_melllon.name => bny_melllon, td_bank.name => td_bank, bofa.name => bofa}
 })
 ge = Stock.new({
   name: :ge,
-  no_shares: 941,
-  price: 25.1})
+  no_of_shares: 941,
+  share_price: 25.1})
 solarwind = Stock.new({
   name: :solarwind,
-  no_shares: 644,
-  price: 48.9})
+  no_of_shares: 644,
+  share_price: 48.9})
 sunpower = Stock.new({
   name: :sunpower,
-  no_shares: 202,
-  price: 32.7})
+  no_of_shares: 202,
+  share_price: 32.7})
 energy = Portfolio.new({
   name: 'Energy',
   stocks:{ge.name => ge, solarwind.name => solarwind, sunpower.name => sunpower}
@@ -63,7 +63,7 @@ def menu
   puts '1 - Create a client'
   puts '2 - Create a portfolio'
   puts '3 - Buy/Sell Stocks'
-  puts '4 - List all clients and their balances'
+  puts '4 - List a client and their balance'
   puts "5 - List a client's portfolios and associated values"
   puts "6 - List all stocks in a portfolio and associated values"
   puts 'q - Quit program'
@@ -84,7 +84,6 @@ while response != 'q'
       name: name,
       balance: balance
     })
-    puts "Enter any key to continue"
     gets
   when '2'
     puts "Create a new portfolio"
@@ -104,15 +103,28 @@ while response != 'q'
     puts "(B)uy or (S)ell a stock"
     answer = gets.chomp.downcase
     if answer == 'b'
-    print "Number of Shares to Purcahse: "
-    buy_shares = gets.chomp.to_f
+      print "Number of Shares to Purcahse: "
+      buy_shares = gets.chomp.to_f
     elsif answer == 's'
-    print "Number of Shares to Sell: "
-    sell_shares = gets.chomp.to_f
+      print "Number of Shares to Sell: "
+      sell_shares = gets.chomp.to_f
     end
+    gets
+  when '4'
+    puts "Who's your client?\n#{ga_brokers.clients.keys.join(' ')}"
+    client = ga_brokers.clients[gets.chomp]
+    puts "The balance of #{client.name} is $#{client.balance}"
+    gets
   when '5'
+    puts "Who's your client?\n#{ga_brokers.clients.keys.join(' ')}"
+    client = ga_brokers.clients[gets.chomp]
+    portfolio = client.portfolios.keys[0]
+    stocks = client.portfolios[client.portfolios.keys[0]].stocks
+    binding.pry
+    client.portfolios.keys.each_with_index do |client|
+      puts "#{client}"
+    end
   when '6'
-  when '7'
   end
   response = menu
 end
