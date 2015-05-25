@@ -105,14 +105,14 @@ while response != 'q'
       print "Number of Shares to Buy: "
       buy_shares = gets.chomp.to_f
       stock.no_of_shares += buy_shares
-      client.balance += stock.share_price*buy_shares
-      puts "The new balance of #{client.name} is $#{client.balance} and now has #{stock.no_of_shares} shares in #{stock.name} and an associated value of $#{stock.share_price*stock.no_of_shares}"
+      client.balance -= stock.share_price*buy_shares
+      puts "The new balance of #{client.name} is $#{client.balance} and now has #{stock.no_of_shares} shares in #{stock.name} with an associated value of $#{stock.share_price*stock.no_of_shares}"
     elsif answer == 's'
       print "Number of Shares to Sell: "
       sell_shares = gets.chomp.to_f
       stock.no_of_shares -= sell_shares
       client.balance += stock.share_price*sell_shares
-      puts "The new balance of #{client.name} is $#{client.balance} and now has #{stock.no_of_shares} shares in #{stock.name} and an associated value of $#{stock.share_price*stock.no_of_shares}"
+      puts "The new balance of #{client.name} is $#{client.balance} and now has #{stock.no_of_shares} shares in #{stock.name} with an associated value of $#{stock.share_price*stock.no_of_shares}"
     end
     gets
   when '4'
